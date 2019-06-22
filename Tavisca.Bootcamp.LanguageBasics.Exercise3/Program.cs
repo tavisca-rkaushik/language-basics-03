@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
@@ -33,15 +33,113 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             var result = SelectMeals(protein, carbs, fat, dietPlans).SequenceEqual(expected) ? "PASS" : "FAIL";
             Console.WriteLine($"Proteins = [{string.Join(", ", protein)}]");
             Console.WriteLine($"Carbs = [{string.Join(", ", carbs)}]");
-            Console.WriteLine($"Fats = [{string.Join(", ", fat)}]");
+            Console.WriteLine($"fat = [{string.Join(", ", fat)}]");
             Console.WriteLine($"Diet plan = [{string.Join(", ", dietPlans)}]");
             Console.WriteLine(result);
         }
 
         public static int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
-            // Add your code here.
+            int size = protein.Length;
+            int[] calories = new int[size];
+
+            for(int i = 0; i < size; i++)
+                calories[i] = ( (protein[i] + carbs[i]) * 5 ) + (fat[i] * 9);
+            
+            int[] result =  new int[dietPlans.Length];
+
+            for(int i = 0; i < dietPlans.Length; i++)
+            {
+                bool[] indices = new bool[size];
+                for(int j = 0; j < size; j++)
+                    indices[j] = true;
+                
+                string temp = dietPlans[i];
+
+                for(int j = 0; j < temp.Length; j++)
+                {
+                    switch(temp[j])
+                    {
+                        case 't':
+                        minimum(indices, calories, size);
+                        break;
+
+                        case 'T':
+                        maximum(indices, calories, size);
+                        break;
+
+                        case 'f':
+                        minimum(indices, fat, size);
+                        break;
+
+                        case 'F':
+                        maximum(indices, fat, size);
+                        break;
+
+                        case 'c':
+                        minimum(indices, carbs, size);
+                        break;
+
+                        case 'C':
+                        maximum(indices, carbs, size);
+                        break;
+
+                        case 'p':
+                        minimum(indices, protein, size);
+                        break;
+
+                        case 'P':
+                        maximum(indices, protein, size);
+                        break;
+                    }
+                }
+                for(int l = 0; l < size; l++)
+                    if(indices[l])
+                    {
+                        result[i] = l;
+                        break;
+                    }
+        }
+        return result;
+
+            
             throw new NotImplementedException();
+        }
+
+
+
+        public static void minimum(bool[] ar, int[] val, int size)
+        {
+            int minval = int.MaxValue;
+            for(int i = 0; i < size; i++)
+            {
+                if(ar[i] && minval > val[i])
+                    minval = val[i];
+            }
+
+            for(int i = 0; i < size; i++)
+            {
+                if(ar[i] && minval != val[i])
+                    ar[i] = false;
+            }
+
+        }
+
+        public static void maximum(bool[] ar, int[] val, int size)
+        {
+            int maxval = int.MinValue;
+            for(int i = 0; i < size; i++)
+            {
+                if(ar[i] && maxval < val[i])
+                    maxval = val[i];
+            }
+
+            for(int i = 0; i < size; i++)
+            {
+                if(ar[i] && maxval != val[i])
+                    ar[i] = false;
+            }
+
         }
     }
 }
