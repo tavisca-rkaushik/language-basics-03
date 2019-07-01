@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
+namespace Tavisca.Bootcamp.LanguageBasics.Exercise3
 {
     public static class Program
     {
@@ -61,35 +61,35 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                     switch(temp[j])
                     {
                         case 't':
-                        minimum(indices, calories, size);
+                        Helper.minimum(indices, calories, size);
                         break;
 
                         case 'T':
-                        maximum(indices, calories, size);
+                        Helper.maximum(indices, calories, size);
                         break;
 
                         case 'f':
-                        minimum(indices, fat, size);
+                        Helper.minimum(indices, fat, size);
                         break;
 
                         case 'F':
-                        maximum(indices, fat, size);
+                        Helper.maximum(indices, fat, size);
                         break;
 
                         case 'c':
-                        minimum(indices, carbs, size);
+                        Helper.minimum(indices, carbs, size);
                         break;
 
                         case 'C':
-                        maximum(indices, carbs, size);
+                        Helper.maximum(indices, carbs, size);
                         break;
 
                         case 'p':
-                        minimum(indices, protein, size);
+                        Helper.minimum(indices, protein, size);
                         break;
 
                         case 'P':
-                        maximum(indices, protein, size);
+                        Helper.maximum(indices, protein, size);
                         break;
                     }
                 }
@@ -106,40 +106,5 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             throw new NotImplementedException();
         }
 
-
-
-        public static void minimum(bool[] ar, int[] val, int size)
-        {
-            int minval = int.MaxValue;
-            for(int i = 0; i < size; i++)
-            {
-                if(ar[i] && minval > val[i])
-                    minval = val[i];
-            }
-
-            for(int i = 0; i < size; i++)
-            {
-                if(ar[i] && minval != val[i])
-                    ar[i] = false;
-            }
-
-        }
-
-        public static void maximum(bool[] ar, int[] val, int size)
-        {
-            int maxval = int.MinValue;
-            for(int i = 0; i < size; i++)
-            {
-                if(ar[i] && maxval < val[i])
-                    maxval = val[i];
-            }
-
-            for(int i = 0; i < size; i++)
-            {
-                if(ar[i] && maxval != val[i])
-                    ar[i] = false;
-            }
-
-        }
     }
 }
